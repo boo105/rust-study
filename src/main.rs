@@ -1,3 +1,4 @@
+use log::Level;
 use tokio::time;
 
 async fn run() {
@@ -7,6 +8,10 @@ async fn run() {
 }
 
 fn main() {
-    simple_logger::init_wi
+    simple_logger::init_with_level(Level::Info).unwrap();
+    let rt = tokio::runtime::Runtime::new().unwrap();
+    let future = run();
+
+    rt.block_on(future);
     println!("Hello, world!");
 }
